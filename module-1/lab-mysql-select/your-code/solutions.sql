@@ -22,7 +22,6 @@ GROUP BY authors.au_id;
 SELECT authors.au_id,
 authors.au_lname,
 authors.au_fname,
-sales.qty,
 SUM(sales.qty) AS total
 FROM sales
 join titles on titles.title_id = sales.title_id
@@ -32,17 +31,19 @@ GROUP BY authors.au_id
 ORDER BY total DESC
 LIMIT 3;
 
+WITH 
+tit_sold AS
+(
+SELECT *
+FROM titles
+LEFT join sales on titles.title_id = sales.title_id
+)
 SELECT authors.au_id,
 authors.au_lname,
 authors.au_fname,
-sales.qty,
-SUM(sales.qty) AS total
-FROM sales
-UNION 
-SELECT total
+SUM(tit_sold.qty) AS total
 FROM authors
-join titles on titles.title_id = sales.title_id
-join titleauthor on titleauthor.title_id = titles.title_id
-left join authors on authors.au_id = titleauthor.au_id
+LEFT outer join titleauthor on authors.au_id = titleauthor.au_id
+LEFT outer join tit_sold on titleauthor.title_id = tit_sold.title_id
 GROUP BY authors.au_id
 ORDER BY total DESC;
