@@ -63,8 +63,8 @@ LIMIT 3;
 
 
 
-4.WITH 
-
+4.WITH
+ 
 tit_sold AS
 
 (
@@ -83,7 +83,7 @@ authors.au_lname,
 
 authors.au_fname,
 
-SUM(tit_sold.qty) AS total
+ifnull (SUM(tit_sold.qty), 0) AS total
 
 FROM authors
 
