@@ -2,6 +2,7 @@ Advanced-MySQL
 
 Challenge 1
 
+create TEMPORARY table Most_profiting_authors
 /*Step1 from lab*/
 with
 table1 AS

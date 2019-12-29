@@ -1,3 +1,4 @@
+create TEMPORARY table Most_profiting_authors
 with
 table1 AS
 (
@@ -20,7 +21,6 @@ FROM table1
 GROUP BY table1.au_id,
 table1.title_id
 ORDER BY table1.title_id DESC /*Step2 from lab*/;
-
 /*Step3 from lab*/
 with 
 table2
@@ -48,8 +48,7 @@ FROM table1
 GROUP BY table1.au_id,
 table1.title_id
 )
-SELECT table2.title_id,
-table2.au_id,
+SELECT table2.au_id,
 table2.total_royalties +
 table2.advance as profits
 from table2
